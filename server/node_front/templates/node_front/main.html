@@ -1,0 +1,16 @@
+{% extends 'layout.html' %}
+{% block title %}
+Morda
+{% endblock title %}
+
+{% block content %}
+<h1> Hello there </h1>
+<form action="" id="input-form" method="POST">
+    {% csrf_token %}
+    {{task_form.as_p}}
+    <input type="submit"  value="Submit" id="submit">
+</form>
+<div id='output'></div>
+
+
+{% endblock content %}
