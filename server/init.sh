@@ -15,4 +15,4 @@ service ssh start
 # rabbitmqctl set_permissions -p "/" vir “.*” “.*” “.*” # set config/write/read permissions 
 # rabbitmqctl set_user_tags vir administrator
 
-python /code/server/manage.py runserver 0.0.0.0:8000
+python /code/manage.py runserver 0.0.0.0:8000
