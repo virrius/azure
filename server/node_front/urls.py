@@ -1,6 +1,7 @@
 from django.urls import path
-from node_front.views import mainView
+from node_front.views import mainView, statusView
 
 urlpatterns = [
-    path('index', mainView, name='main'),
+    path('', mainView, name='main'),
+    path('status', statusView, name='status'),
 ]

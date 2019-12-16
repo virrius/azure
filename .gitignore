@@ -1,3 +1,6 @@
 gridenv/
 .gridenv/
 .vscode/
+server/front/__pycache__/
+server/node_front/migrations/
+server/node_front/migrations/__pycache__/

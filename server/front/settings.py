@@ -25,11 +25,11 @@ SECRET_KEY = '-sw3q=nizccnx$*t=#b2!54ouk1m&u0c&*by!2!x&&!e0!gn)3'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-BROKER_HOST='0.0.0.0'
+BROKER_HOST='amqp://hkdomwxh:HOFklVVJFhu5qjmPgpRWlfYYDC1Z6lpQ@prawn.rmq.cloudamqp.com/'
 BROKER_PORT = 5672
-BROKER_VHOST = "/"
-BROKER_USER = "vir"
-BROKER_PASSWORD = "QWErty123"
+BROKER_VHOST = "hkdomwxh"
+BROKER_USER = "hkdomwxh"
+BROKER_PASSWORD = "HOFklVVJFhu5qjmPgpRWlfYYDC1Z6lpQ"
 
 
 # Application definition
@@ -124,7 +124,7 @@ STATIC_URL = '/static/'
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '0.0.0.0']
+ALLOWED_HOSTS = ['*']
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/

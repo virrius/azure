@@ -1,0 +1,26 @@
+{% extends 'layout.html' %}
+{% block title %}
+Mordashka
+{% endblock title %}
+
+{% block content %}
+<h1> Check your task result by uid</h1>
+<form action="" id="status-form" method="POST">
+    {% csrf_token %}
+    {{result_form.as_p}}
+    <input type="submit"  value="Submit" id="submit">
+</form>
+{% for out in output%}
+<div id='output'>
+    
+    <p>name: {{ out.name }}</p>
+    <p>result: {{ out.body }}</p>
+</div>
+{% endfor %}
+<div>
+    <a href="{% url 'main' %}">create new task</a>.
+</div>
+
+
+
+{% endblock content %}
