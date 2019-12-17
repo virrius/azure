@@ -1,10 +1,12 @@
 from django.shortcuts import render
 from .forms import Wait_task_form, Result_form
 from django.conf import settings
+from .workersManager import workersManager
 import pika
 from .models import Result
 import json
 import uuid
+
 
 # Create your views here.
 
@@ -29,6 +31,11 @@ def mainView(request):
             channel.basic_publish(
                 exchange='', routing_key="tasks", body=json.dumps(message))
             connection.close()
+            manager = workersManager()
+            manager.run_task_based_container(manager.aciclient,
+                                             manager.resource_group, 
+                                             str(uid),
+                                             manager.container_image_name)
             task = form.save()
             task.save()
             return render(request, 'node_front/main.html', {'task_form': form, 'output': "uid of this task: {}".format(uid)})
@@ -37,8 +44,6 @@ def mainView(request):
         form = Wait_task_form()
         return render(request, 'node_front/main.html', {'task_form': form})
 
-   
-    
 
 def statusView(request):
     if request.method == 'POST':
@@ -49,12 +54,13 @@ def statusView(request):
         channel = connection.channel()
         queue = channel.queue_declare(queue='results', exclusive=False)
         last = queue.method.message_count
-        if last>0:
+        if last > 0:
             for method_frame, properties, body in channel.consume('results'):
                 print("im in consuming!")
                 print(body)
                 json_res = json.loads(body)
-                res = Result.objects.create(uid=json_res["uid"], name=json_res["name"], body= "task ends with result: {}".format(json_res["data"]))
+                res = Result.objects.create(
+                    uid=json_res["uid"], name=json_res["name"], body="task ends with result: {}".format(json_res["data"]))
                 print(res)
                 res.save()
                 channel.basic_ack(method_frame.delivery_tag)
@@ -64,7 +70,6 @@ def statusView(request):
         channel.close()
         connection.close()
         return render(request, 'node_front/status.html', {'result_form': result_form, "output": Result.objects.filter(uid=request.POST["uid"])})
-
 
     if request.method == 'GET':
         result_form = Result_form()

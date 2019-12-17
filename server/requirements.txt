@@ -1,2 +1,6 @@
 Django >2.0
 pika==1.1.0
+  
+azure-common==1.1.18
+azure-mgmt-containerinstance==1.4.1
+azure-mgmt-resource==2.1.0
